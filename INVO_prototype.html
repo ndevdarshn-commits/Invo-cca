@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INVO | CCA Command Centre</title>
+<style>
+:root{--bg:#f3f5fa;--ink:#172033;--muted:#7c879b;--line:#e9edf4;--card:rgba(255,255,255,.82);--accent:#5b67e8;--accent2:#8991ff;--shadow:0 18px 55px rgba(30,43,75,.08);--radius:25px}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 85% 0%,#e8eaff 0,transparent 27%),radial-gradient(circle at 0% 90%,#e8f4ff 0,transparent 25%),var(--bg);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;color:var(--ink)}
+button,input,select{font:inherit}button{cursor:pointer;border:0}.app{display:grid;grid-template-columns:250px 1fr;min-height:100vh;max-width:1700px;margin:auto;padding:18px;gap:18px}
+.sidebar{background:#151d33;color:#fff;border-radius:30px;padding:24px 16px;display:flex;flex-direction:column;min-height:calc(100vh - 36px);box-shadow:0 22px 60px #17213b25}
+.brand{display:flex;align-items:center;gap:12px;padding:4px 10px 28px}.logo{width:42px;height:42px;border-radius:15px;background:linear-gradient(135deg,#a6adff,#5d68ed);display:grid;place-items:center;font-weight:900;font-size:20px;box-shadow:0 8px 22px #6974f966}.brand strong{font-size:20px;letter-spacing:1.5px}.brand small{display:block;color:#aab3c8;font-size:10px;letter-spacing:1.5px;margin-top:2px}
+.nav-label{font-size:10px;color:#78849e;font-weight:800;letter-spacing:1.5px;padding:12px 12px 8px}.nav{display:grid;gap:5px}.nav button{display:flex;align-items:center;gap:13px;text-align:left;color:#aeb8cc;background:transparent;padding:12px 13px;border-radius:14px;font-size:13px;transition:.2s}.nav button:hover,.nav button.active{background:#293451;color:white}.nav button.active{box-shadow:inset 3px 0 #929aff}.ico{width:20px;text-align:center;font-size:16px}.side-bottom{margin-top:auto;background:#202b46;border:1px solid #34415f;border-radius:20px;padding:15px}.side-bottom small{color:#9da9c2}.side-bottom b{display:block;margin:5px 0 10px;font-size:13px}.progress{height:5px;background:#3a4661;border-radius:9px;overflow:hidden}.progress i{display:block;width:68%;height:100%;background:#9ba3ff;border-radius:9px}
+main{min-width:0;padding:4px 5px 25px}.topbar{display:flex;justify-content:space-between;align-items:center;padding:8px 5px 22px;gap:15px}.crumb{color:var(--muted);font-size:12px}.crumb b{color:var(--ink)}.top-actions{display:flex;align-items:center;gap:10px}.icon-btn{width:40px;height:40px;border-radius:14px;background:white;color:#59647b;box-shadow:0 5px 18px #24304b0a;position:relative}.dot{position:absolute;width:7px;height:7px;background:#ff7c8a;border-radius:50%;right:8px;top:8px}.profile{display:flex;align-items:center;gap:9px;background:white;padding:5px 12px 5px 5px;border-radius:16px}.avatar{width:32px;height:32px;border-radius:12px;background:linear-gradient(135deg,#ffd8bd,#ed9d89);display:grid;place-items:center;font-weight:800;color:#744b43;font-size:12px}.profile b{font-size:12px}.profile small{display:block;color:var(--muted);font-size:10px}
+.page-head{display:flex;justify-content:space-between;align-items:flex-end;margin:8px 5px 22px;gap:15px}.eyebrow{font-size:10px;letter-spacing:1.7px;color:var(--accent);font-weight:900}.page-head h1{font-size:29px;letter-spacing:-1.1px;margin:6px 0}.page-head p{margin:0;color:var(--muted);font-size:13px}.primary{background:linear-gradient(135deg,#6672ef,#818bff);color:#fff;padding:12px 17px;border-radius:14px;box-shadow:0 9px 20px #6874ed35;font-weight:700;font-size:12px}.secondary{background:#f0f2ff;color:#5966d9;padding:10px 14px;border-radius:12px;font-size:11px;font-weight:800}
+.grid{display:grid;gap:16px}.stats{grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:17px}.card{background:var(--card);border:1px solid #ffffffd9;border-radius:var(--radius);box-shadow:var(--shadow);padding:19px;backdrop-filter:blur(18px);min-width:0}.stat-top{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:11px}.stat-icon{width:34px;height:34px;border-radius:12px;display:grid;place-items:center;background:#f0f1ff;color:#6974e9;font-size:16px}.stat-value{font-size:27px;font-weight:800;letter-spacing:-1px;margin:12px 0 3px}.stat-foot{font-size:10px;color:var(--muted)}.up{color:#19a67a;font-weight:800}
+.content-grid{grid-template-columns:minmax(0,1.55fr) minmax(270px,.85fr);align-items:start}.section-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.section-title h2{font-size:15px;margin:0}.section-title span{font-size:10px;color:var(--muted)}
+.events{display:grid;gap:10px}.event{display:grid;grid-template-columns:52px 1fr auto;gap:12px;align-items:center;padding:12px;border:1px solid var(--line);border-radius:17px;background:#ffffffa8}.datebox{background:#f1f2ff;border-radius:13px;text-align:center;padding:8px 3px;color:#626fe2}.datebox b{display:block;font-size:18px}.datebox small{font-size:9px;font-weight:800}.event h3{font-size:12px;margin:0 0 5px}.event p{font-size:10px;color:var(--muted);margin:0}.pill{font-size:9px;font-weight:800;padding:6px 9px;border-radius:20px;background:#e9f8f1;color:#19936e;white-space:nowrap}.pill.orange{background:#fff3e5;color:#ce852e}.pill.blue{background:#edf0ff;color:#6571db}
+.house-list{display:grid;gap:13px}.house-row{display:grid;grid-template-columns:10px 1fr auto;gap:10px;align-items:center}.house-color{width:9px;height:34px;border-radius:8px}.house-row b{font-size:11px}.house-row small{display:block;color:var(--muted);font-size:9px;margin-top:3px}.house-row strong{font-size:12px}.bar{height:5px;background:#edf0f5;border-radius:9px;margin-top:7px;overflow:hidden}.bar i{display:block;height:100%;border-radius:9px}
+.lower{grid-template-columns:1.15fr .85fr;margin-top:16px}.activity{display:grid;gap:13px}.activity-item{display:flex;gap:10px;align-items:flex-start}.activity-icon{width:30px;height:30px;border-radius:11px;background:#f0f2ff;display:grid;place-items:center;font-size:13px}.activity-item b{font-size:11px}.activity-item small{display:block;color:var(--muted);font-size:10px;margin-top:3px}.quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.quick{background:#f7f8fc;border:1px solid var(--line);border-radius:16px;padding:14px;text-align:left}.quick:hover{background:#f0f1ff}.quick span{font-size:18px}.quick b{display:block;font-size:11px;margin-top:8px}.quick small{font-size:9px;color:var(--muted)}
+.panel{display:none}.panel.active{display:block}.table-wrap{overflow:auto}.data-table{width:100%;border-collapse:collapse;min-width:580px}.data-table th{text-align:left;color:var(--muted);font-size:10px;font-weight:700;padding:12px;border-bottom:1px solid var(--line)}.data-table td{font-size:11px;padding:14px 12px;border-bottom:1px solid var(--line)}.data-table tr:last-child td{border:0}.search{padding:10px 13px;border:1px solid var(--line);border-radius:12px;background:#fff;outline:none;font-size:11px;width:220px}.toolbar{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:15px}.house-cards{grid-template-columns:repeat(4,1fr)}.house-card{text-align:center;padding:20px 12px}.house-emblem{width:48px;height:48px;border-radius:17px;margin:0 auto 10px;display:grid;place-items:center;color:#fff;font-size:20px}.house-card h3{font-size:11px;margin:0}.house-card strong{display:block;font-size:23px;margin:9px}.house-card small{font-size:9px;color:var(--muted)}
+.modal-backdrop{display:none;position:fixed;inset:0;background:#10182b77;backdrop-filter:blur(7px);z-index:10;align-items:center;justify-content:center;padding:18px}.modal-backdrop.show{display:flex}.modal{width:min(460px,100%);background:#fff;border-radius:25px;padding:23px;box-shadow:0 25px 80px #10182b55}.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:17px}.modal h2{font-size:18px;margin:0}.close{background:#f1f2f6;border-radius:10px;width:30px;height:30px}.field{display:grid;gap:6px;margin:12px 0}.field label{font-size:10px;color:var(--muted);font-weight:800}.field input,.field select{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:12px;outline:none;font-size:12px;background:#fbfcff}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}.toast{position:fixed;bottom:22px;right:22px;background:#18223b;color:white;padding:13px 17px;border-radius:14px;font-size:12px;box-shadow:var(--shadow);opacity:0;transform:translateY(12px);transition:.25s;pointer-events:none;z-index:20}.toast.show{opacity:1;transform:translateY(0)}
+@media(max-width:1050px){.app{grid-template-columns:210px 1fr}.stats{grid-template-columns:repeat(2,1fr)}.house-cards{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:760px){.app{display:block;padding:10px}.sidebar{min-height:0;padding:12px;border-radius:22px;margin-bottom:14px}.brand{padding:3px 6px 12px}.nav-label,.side-bottom{display:none}.nav{display:flex;overflow:auto}.nav button{white-space:nowrap;padding:10px}.nav button .ico{width:auto}.nav button span:last-child{font-size:11px}.topbar{padding:6px 2px 16px}.profile b,.profile small{display:none}.page-head{align-items:flex-start;flex-direction:column}.page-head h1{font-size:25px}.content-grid,.lower{grid-template-columns:1fr}.stats{gap:10px}.card{padding:15px}.stat-value{font-size:23px}.event{grid-template-columns:45px 1fr}.event>.pill{grid-column:2;justify-self:start}.toolbar{align-items:stretch;flex-direction:column}.search{width:100%}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><div class="logo">I</div><div><strong>INVO</strong><small>CCA COMMAND CENTRE</small></div></div>
+  <div class="nav-label">WORKSPACE</div>
+  <nav class="nav" id="nav">
+    <button class="active" data-page="overview"><span class="ico">◫</span>Overview</button>
+    <button data-page="events"><span class="ico">▦</span>Events</button>
+    <button data-page="registrations"><span class="ico">♙</span>Registrations</button>
+    <button data-page="judges"><span class="ico">✦</span>Judges & scoring</button>
+    <button data-page="houses"><span class="ico">⌂</span>House standings</button>
+    <button data-page="students"><span class="ico">◎</span>Students</button>
+    <button data-page="certificates"><span class="ico">▤</span>Certificates</button>
+  </nav>
+  <div class="nav-label">SYSTEM</div>
+  <nav class="nav">
+    <button data-page="announcements"><span class="ico">◉</span>Announcements</button>
+    <button data-page="settings"><span class="ico">⚙</span>Settings</button>
+  </nav>
+  <div class="side-bottom"><small>ACADEMIC YEAR</small><b>2026 – 2027</b><div class="progress"><i></i></div><small style="display:block;margin-top:9px">Programme setup · 68%</small></div>
+</aside>
+<main>
+  <header class="topbar"><div class="crumb">Workspace&nbsp; / &nbsp;<b id="crumb">Overview</b></div><div class="top-actions"><button class="icon-btn" onclick="notify('You are all caught up!')">♧<i class="dot"></i></button><div class="profile"><div class="avatar">AD</div><div><b>CCA Admin</b><small>Administrator</small></div></div></div></header>
+
+  <section class="panel active" id="overview">
+    <div class="page-head"><div><div class="eyebrow">THURSDAY, 19 NOVEMBER 2026</div><h1>Good afternoon, Admin <span>✦</span></h1><p>Here's what's happening across your CCA ecosystem today.</p></div><button class="primary" onclick="openModal('event')">＋ Create new event</button></div>
+    <div class="grid stats">
+      <div class="card"><div class="stat-top">Total events <span class="stat-icon">▦</span></div><div class="stat-value" id="statEvents">24</div><div class="stat-foot"><span class="up">↑ 4</span> added this term</div></div>
+      <div class="card"><div class="stat-top">Registered students <span class="stat-icon">♙</span></div><div class="stat-value" id="statStudents">486</div><div class="stat-foot"><span class="up">↑ 12%</span> participation</div></div>
+      <div class="card"><div class="stat-top">Pending evaluations <span class="stat-icon">✦</span></div><div class="stat-value">08</div><div class="stat-foot">Across 3 competitions</div></div>
+      <div class="card"><div class="stat-top">Certificates issued <span class="stat-icon">▤</span></div><div class="stat-value">132</div><div class="stat-foot">This academic year</div></div>
+    </div>
+    <div class="grid content-grid">
+      <div class="card"><div class="section-title"><h2>Upcoming events</h2><span>VIEW CALENDAR →</span></div><div class="events" id="eventList">
+        <div class="event"><div class="datebox"><b>24</b><small>NOV</small></div><div><h3>Inter-House Debate</h3><p>Literary · Classes VI–X · Individual</p></div><span class="pill">Registration open</span></div>
+        <div class="event"><div class="datebox"><b>28</b><small>NOV</small></div><div><h3>Creative Robotics Challenge</h3><p>Technology · Classes VII–X · Group</p></div><span class="pill orange">Judge assigned</span></div>
+        <div class="event"><div class="datebox"><b>03</b><small>DEC</small></div><div><h3>Classical Dance Showcase</h3><p>Cultural · Classes V–X · Individual</p></div><span class="pill blue">Upcoming</span></div>
+      </div></div>
+      <div class="card"><div class="section-title"><h2>House championship</h2><span>2026–27</span></div><div class="house-list">
+        <div class="house-row"><i class="house-color" style="background:#e45d68"></i><div><b>Rabindranath Tagore</b><div class="bar"><i style="width:88%;background:#e45d68"></i></div></div><strong>1,240</strong></div>
+        <div class="house-row"><i class="house-color" style="background:#e8b83e"></i><div><b>Swami Vivekananda</b><div class="bar"><i style="width:74%;background:#e8b83e"></i></div></div><strong>1,045</strong></div>
+        <div class="house-row"><i class="house-color" style="background:#5487e8"></i><div><b>Homi J. Bhabha</b><div class="bar"><i style="width:62%;background:#5487e8"></i></div></div><strong>890</strong></div>
+        <div class="house-row"><i class="house-color" style="background:#49ad83"></i><div><b>Sarojini Naidu</b><div class="bar"><i style="width:49%;background:#49ad83"></i></div></div><strong>710</strong></div>
+      </div></div>
+    </div>
+    <div class="grid lower">
+      <div class="card"><div class="section-title"><h2>Recent activity</h2><span>LIVE FEED</span></div><div class="activity">
+        <div class="activity-item"><div class="activity-icon">✓</div><div><b>New registrations approved</b><small>12 students · Inter-House Debate · 18 min ago</small></div></div>
+        <div class="activity-item"><div class="activity-icon">✦</div><div><b>Judging completed</b><small>Poster Design · Results awaiting verification</small></div></div>
+        <div class="activity-item"><div class="activity-icon">▤</div><div><b>Certificates generated</b><small>24 certificates · Science Exhibition</small></div></div>
+      </div></div>
+      <div class="card"><div class="section-title"><h2>Quick actions</h2><span>SHORTCUTS</span></div><div class="quick-grid">
+        <button class="quick" onclick="openModal('event')"><span>＋</span><b>Create event</b><small>Schedule a competition</small></button>
+        <button class="quick" onclick="go('registrations')"><span>♙</span><b>Registrations</b><small>Review participants</small></button>
+        <button class="quick" onclick="go('judges')"><span>✦</span><b>Assign judges</b><small>Manage evaluations</small></button>
+        <button class="quick" onclick="go('announcements')"><span>◉</span><b>Announcement</b><small>Share an update</small></button>
+      </div></div>
+    </div>
+  </section>
+
+  <section class="panel" id="events">
+    <div class="page-head"><div><div class="eyebrow">PROGRAMME MANAGEMENT</div><h1>Events & competitions</h1><p>Create, schedule and monitor every CCA activity.</p></div><button class="primary" onclick="openModal('event')">＋ Create event</button></div>
+    <div class="card"><div class="toolbar"><div class="section-title" style="margin:0"><h2>All events</h2><span id="eventCount">24 EVENTS</span></div><input class="search" placeholder="Search events..." oninput="filterRows(this,'eventsTable')"></div><div class="table-wrap"><table class="data-table" id="eventsTable"><thead><tr><th>EVENT</th><th>DATE</th><th>CATEGORY</th><th>TYPE</th><th>STATUS</th></tr></thead><tbody>
+    <tr><td><b>Inter-House Debate</b></td><td>24 Nov 2026</td><td>Literary</td><td>Individual</td><td><span class="pill">Registration open</span></td></tr><tr><td><b>Creative Robotics Challenge</b></td><td>28 Nov 2026</td><td>Technology</td><td>Group</td><td><span class="pill orange">Judge assigned</span></td></tr><tr><td><b>Classical Dance Showcase</b></td><td>03 Dec 2026</td><td>Cultural</td><td>Individual</td><td><span class="pill blue">Upcoming</span></td></tr><tr><td><b>Science Poster Design</b></td><td>12 Nov 2026</td><td>Academic</td><td>Individual</td><td><span class="pill">Completed</span></td></tr>
+    </tbody></table></div></div>
+  </section>
+
+  <section class="panel" id="registrations">
+    <div class="page-head"><div><div class="eyebrow">PARTICIPANT MANAGEMENT</div><h1>Registrations</h1><p>Review student entries and approval status.</p></div><button class="primary" onclick="notify('Registration import is a prototype action.')">⇧ Import list</button></div>
+    <div class="card"><div class="toolbar"><div class="section-title" style="margin:0"><h2>Recent registrations</h2><span>HOUSE MASTER APPROVAL</span></div><input class="search" placeholder="Search students..." oninput="filterRows(this,'regTable')"></div><div class="table-wrap"><table class="data-table" id="regTable"><thead><tr><th>STUDENT</th><th>ADMISSION NO.</th><th>HOUSE</th><th>EVENT</th><th>STATUS</th><th>ACTION</th></tr></thead><tbody>
+    <tr><td><b>Aarav S.</b></td><td>26041</td><td>Tagore</td><td>Inter-House Debate</td><td class="status">Pending</td><td><button class="secondary" onclick="approve(this)">Approve</button></td></tr><tr><td><b>Meera K.</b></td><td>26052</td><td>Bhabha</td><td>Robotics Challenge</td><td class="status">Pending</td><td><button class="secondary" onclick="approve(this)">Approve</button></td></tr><tr><td><b>Rohan P.</b></td><td>26018</td><td>Vivekananda</td><td>Inter-House Debate</td><td class="status">Approved</td><td><span class="pill">Approved</span></td></tr><tr><td><b>Ananya R.</b></td><td>26073</td><td>Naidu</td><td>Dance Showcase</td><td class="status">Pending</td><td><button class="secondary" onclick="approve(this)">Approve</button></td></tr>
+    </tbody></table></div></div>
+  </section>
+
+  <section class="panel" id="judges">
+    <div class="page-head"><div><div class="eyebrow">EVALUATION CENTRE</div><h1>Judges & scoring</h1><p>Assign judges and track competition evaluations.</p></div><button class="primary" onclick="openModal('judge')">＋ Assign judge</button></div>
+    <div class="grid stats"><div class="card"><div class="stat-top">Active judges <span class="stat-icon">✦</span></div><div class="stat-value">12</div><div class="stat-foot">Across 8 competitions</div></div><div class="card"><div class="stat-top">Awaiting marks <span class="stat-icon">◷</span></div><div class="stat-value">08</div><div class="stat-foot">3 events in progress</div></div><div class="card"><div class="stat-top">Submitted <span class="stat-icon">✓</span></div><div class="stat-value">16</div><div class="stat-foot">Ready for verification</div></div><div class="card"><div class="stat-top">Verified results <span class="stat-icon">▤</span></div><div class="stat-value">09</div><div class="stat-foot">This academic year</div></div></div>
+    <div class="card"><div class="section-title"><h2>Evaluation queue</h2><span>JUDGE ACCESS IS RESTRICTED TO ASSIGNED EVENTS</span></div><div class="table-wrap"><table class="data-table"><thead><tr><th>COMPETITION</th><th>ASSIGNED JUDGE</th><th>SUBMISSIONS</th><th>STATUS</th><th>ACTION</th></tr></thead><tbody><tr><td><b>Robotics Challenge</b></td><td>Mrs. S. Rao</td><td>8 / 12</td><td><span class="pill orange">In progress</span></td><td><button class="secondary" onclick="notify('Opening scoring workspace (demo).')">Review</button></td></tr><tr><td><b>Poster Design</b></td><td>Mr. K. Nair</td><td>12 / 12</td><td><span class="pill">Submitted</span></td><td><button class="secondary" onclick="notify('Results sent for verification (demo).')">Verify</button></td></tr></tbody></table></div></div>
+  </section>
+
+  <section class="panel" id="houses">
+    <div class="page-head"><div><div class="eyebrow">INTER-HOUSE CHAMPIONSHIP</div><h1>House standings</h1><p>Points are calculated from approved competition results.</p></div><button class="secondary" onclick="notify('Standings exported (demo).')">⇩ Export standings</button></div>
+    <div class="grid house-cards">
+      <div class="card house-card"><div class="house-emblem" style="background:#e45d68">T</div><h3>Rabindranath Tagore</h3><strong>1,240</strong><small>1st place · 14 wins</small></div>
+      <div class="card house-card"><div class="house-emblem" style="background:#e8b83e">V</div><h3>Swami Vivekananda</h3><strong>1,045</strong><small>2nd place · 11 wins</small></div>
+      <div class="card house-card"><div class="house-emblem" style="background:#5487e8">B</div><h3>Homi J. Bhabha</h3><strong>890</strong><small>3rd place · 9 wins</small></div>
+      <div class="card house-card"><div class="house-emblem" style="background:#49ad83">N</div><h3>Sarojini Naidu</h3><strong>710</strong><small>4th place · 7 wins</small></div>
+    </div>
+    <div class="card" style="margin-top:16px"><div class="section-title"><h2>Points breakdown</h2><span>DEMO DATA</span></div><div class="house-list"><div class="house-row"><i class="house-color" style="background:#e45d68"></i><div><b>Tagore House</b><div class="bar"><i style="width:100%;background:#e45d68"></i></div></div><strong>1,240 pts</strong></div><div class="house-row"><i class="house-color" style="background:#e8b83e"></i><div><b>Vivekananda House</b><div class="bar"><i style="width:84%;background:#e8b83e"></i></div></div><strong>1,045 pts</strong></div><div class="house-row"><i class="house-color" style="background:#5487e8"></i><div><b>Bhabha House</b><div class="bar"><i style="width:72%;background:#5487e8"></i></div></div><strong>890 pts</strong></div><div class="house-row"><i class="house-color" style="background:#49ad83"></i><div><b>Naidu House</b><div class="bar"><i style="width:57%;background:#49ad83"></i></div></div><strong>710 pts</strong></div></div></div>
+  </section>
+
+  <section class="panel" id="students">
+    <div class="page-head"><div><div class="eyebrow">SCHOOL DIRECTORY</div><h1>Students</h1><p>Manage student records and house assignments.</p></div><button class="primary" onclick="notify('Student import template prepared (demo).')">⇧ Import students</button></div>
+    <div class="card"><div class="toolbar"><div class="section-title" style="margin:0"><h2>Student directory</h2><span>DEMO RECORDS</span></div><input class="search" placeholder="Search students..." oninput="filterRows(this,'studentTable')"></div><div class="table-wrap"><table class="data-table" id="studentTable"><thead><tr><th>STUDENT</th><th>ADMISSION NO.</th><th>CLASS</th><th>HOUSE</th><th>PARTICIPATIONS</th><th>AWARDS</th></tr></thead><tbody><tr><td><b>Aarav Sharma</b></td><td>26041</td><td>VIII</td><td>Tagore</td><td>6</td><td>2</td></tr><tr><td><b>Meera Kumar</b></td><td>26052</td><td>VIII</td><td>Bhabha</td><td>8</td><td>3</td></tr><tr><td><b>Rohan Prasad</b></td><td>26018</td><td>IX</td><td>Vivekananda</td><td>4</td><td>1</td></tr><tr><td><b>Ananya Rao</b></td><td>26073</td><td>VII</td><td>Naidu</td><td>5</td><td>2</td></tr></tbody></table></div></div>
+  </section>
+
+  <section class="panel" id="certificates">
+    <div class="page-head"><div><div class="eyebrow">RECOGNITION & ACHIEVEMENTS</div><h1>Certificates</h1><p>Generate and manage student achievement records.</p></div><button class="primary" onclick="notify('Certificate generator is a demo placeholder.')">＋ Generate certificates</button></div>
+    <div class="grid stats"><div class="card"><div class="stat-top">Issued this year <span class="stat-icon">▤</span></div><div class="stat-value">132</div><div class="stat-foot">Across all programmes</div></div><div class="card"><div class="stat-top">Ready to issue <span class="stat-icon">✧</span></div><div class="stat-value">24</div><div class="stat-foot">Approved award records</div></div><div class="card"><div class="stat-top">Participation <span class="stat-icon">♙</span></div><div class="stat-value">108</div><div class="stat-foot">Participation certificates</div></div><div class="card"><div class="stat-top">Achievement <span class="stat-icon">★</span></div><div class="stat-value">24</div><div class="stat-foot">Prize certificates</div></div></div>
+    <div class="card"><div class="section-title"><h2>Recent certificate records</h2><span>PRIVATE STUDENT RECORDS</span></div><div class="table-wrap"><table class="data-table"><thead><tr><th>STUDENT</th><th>ACHIEVEMENT</th><th>EVENT</th><th>ISSUED</th><th>STATUS</th></tr></thead><tbody><tr><td><b>Meera Kumar</b></td><td>First Place</td><td>Science Exhibition</td><td>16 Nov 2026</td><td><span class="pill">Issued</span></td></tr><tr><td><b>Aarav Sharma</b></td><td>Participation</td><td>Quiz League</td><td>14 Nov 2026</td><td><span class="pill">Issued</span></td></tr></tbody></table></div></div>
+  </section>
+
+  <section class="panel" id="announcements">
+    <div class="page-head"><div><div class="eyebrow">SCHOOL COMMUNICATION</div><h1>Announcements</h1><p>Publish updates to relevant students, houses and staff.</p></div><button class="primary" onclick="openModal('announcement')">＋ New announcement</button></div>
+    <div class="card"><div class="activity">
+      <div class="activity-item"><div class="activity-icon">◉</div><div><b>Inter-House Debate registrations are open</b><small>Audience: Classes VI–X · Published 19 Nov 2026</small></div></div>
+      <div class="activity-item"><div class="activity-icon">◉</div><div><b>Robotics Challenge briefing</b><small>Audience: Registered participants · Published 18 Nov 2026</small></div></div>
+      <div class="activity-item"><div class="activity-icon">◉</div><div><b>Tagore House meeting</b><small>Audience: Tagore House · Published 17 Nov 2026</small></div></div>
+    </div></div>
+  </section>
+
+  <section class="panel" id="settings">
+    <div class="page-head"><div><div class="eyebrow">PLATFORM CONTROL</div><h1>Settings</h1><p>Configure the academic year and prototype preferences.</p></div></div>
+    <div class="grid content-grid"><div class="card"><div class="section-title"><h2>Academic year</h2><span>ACTIVE</span></div><h2 style="font-size:25px;margin:8px 0">2026 – 2027</h2><p style="font-size:11px;color:var(--muted)">The annual reset should archive previous results before clearing active-year standings. This prototype does not perform a real reset.</p><button class="secondary" onclick="notify('Annual reset is disabled in this prototype.')">Review annual reset</button></div><div class="card"><div class="section-title"><h2>Integrations</h2><span>PLANNED</span></div><p style="font-size:12px">AttoChat notifications</p><span class="pill orange">Not connected</span><p style="font-size:10px;color:var(--muted);margin-top:12px">INVO remains the official source of CCA records. Integration requires a secure API and account mapping.</p></div></div>
+  </section>
+</main>
+</div>
+
+<div class="modal-backdrop" id="modalBackdrop" onclick="if(event.target===this)closeModal()"><div class="modal"><div class="modal-head"><h2 id="modalTitle">Create event</h2><button class="close" onclick="closeModal()">×</button></div><form id="modalForm">
+  <div id="eventFields"><div class="field"><label>EVENT NAME</label><input id="eventName" required placeholder="e.g. Inter-House Quiz"></div><div class="field"><label>CATEGORY</label><select id="eventCategory"><option>Academic</option><option>Cultural</option><option>Sports</option><option>Literary</option><option>Technology</option></select></div><div class="field"><label>EVENT DATE</label><input id="eventDate" type="date" required></div><div class="field"><label>PARTICIPATION TYPE</label><select id="eventType"><option>Individual</option><option>Group</option></select></div></div>
+  <div id="judgeFields" style="display:none"><div class="field"><label>JUDGE NAME</label><input id="judgeName" placeholder="Teacher / judge name"></div><div class="field"><label>ASSIGN TO COMPETITION</label><select><option>Robotics Challenge</option><option>Inter-House Debate</option><option>Classical Dance Showcase</option></select></div></div>
+  <div id="announcementFields" style="display:none"><div class="field"><label>ANNOUNCEMENT TITLE</label><input id="announcementTitle" placeholder="Enter a clear title"></div><div class="field"><label>MESSAGE</label><input id="announcementMessage" placeholder="Write your announcement"></div><div class="field"><label>AUDIENCE</label><select><option>All students</option><option>Registered participants</option><option>House members</option><option>Judges</option></select></div></div>
+  <div class="modal-actions"><button type="button" class="secondary" onclick="closeModal()">Cancel</button><button class="primary" type="submit">Save</button></div>
+</form></div></div><div class="toast" id="toast"></div>
+<script>
+const labels={overview:'Overview',events:'Events',registrations:'Registrations','judges':'Judges & scoring',houses:'House standings',students:'Students',certificates:'Certificates',announcements:'Announcements',settings:'Settings'};
+function go(page){document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.getElementById(page).classList.add('active');document.querySelectorAll('[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===page));document.getElementById('crumb').textContent=labels[page];window.scrollTo({top:0,behavior:'smooth'})}
+document.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.page)));
+let modalMode='event';
+function openModal(mode){modalMode=mode;document.getElementById('modalTitle').textContent=mode==='event'?'Create new event':mode==='judge'?'Assign a judge':'New announcement';document.getElementById('eventFields').style.display=mode==='event'?'block':'none';document.getElementById('judgeFields').style.display=mode==='judge'?'block':'none';document.getElementById('announcementFields').style.display=mode==='announcement'?'block':'none';document.getElementById('modalBackdrop').classList.add('show')}
+function closeModal(){document.getElementById('modalBackdrop').classList.remove('show')}
+function notify(msg){let t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>t.classList.remove('show'),2600)}
+document.getElementById('modalForm').addEventListener('submit',e=>{e.preventDefault();if(modalMode==='event'){let name=document.getElementById('eventName').value,date=document.getElementById('eventDate').value,cat=document.getElementById('eventCategory').value,type=document.getElementById('eventType').value;let d=date?new Date(date+'T00:00:00'):new Date();let day=String(d.getDate()).padStart(2,'0'),month=d.toLocaleString('en',{month:'short'}).toUpperCase();let row=document.createElement('div');row.className='event';row.innerHTML=`<div class="datebox"><b>${day}</b><small>${month}</small></div><div><h3></h3><p></p></div><span class="pill blue">Upcoming</span>`;row.querySelector('h3').textContent=name;row.querySelector('p').textContent=cat+' · '+type;document.getElementById('eventList').prepend(row);let tr=document.createElement('tr');tr.innerHTML='<td></td><td></td><td></td><td></td><td><span class="pill blue">Upcoming</span></td>';tr.children[0].textContent=name;tr.children[1].textContent=day+' '+month+' 2026';tr.children[2].textContent=cat;tr.children[3].textContent=type;document.querySelector('#eventsTable tbody').prepend(tr);document.getElementById('statEvents').textContent=Number(document.getElementById('statEvents').textContent)+1;notify('Event added to the prototype!')}else if(modalMode==='judge'){notify('Judge assignment saved in demo mode.')}else{notify('Announcement created in demo mode.')}closeModal();e.target.reset()});
+function approve(btn){let row=btn.closest('tr');row.querySelector('.status').textContent='Approved';btn.parentElement.innerHTML='<span class="pill">Approved</span>';notify('Registration approved (demo).')}
+function filterRows(input,id){let q=input.value.toLowerCase();document.querySelectorAll('#'+id+' tbody tr').forEach(r=>r.style.display=r.innerText.toLowerCase().includes(q)?'':'none')}
+</script>
+</body>
+</html>
